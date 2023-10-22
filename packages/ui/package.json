@@ -16,6 +16,6 @@
     "@repo/lint": "*",
     "react": "^18.2.0",
     "@repo/tsconfig": "*",
-    "typescript": "^4.5.2"
+    "typescript": "5.2.2"
   }
 }

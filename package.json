@@ -4,7 +4,7 @@
 		"build": "turbo run build",
 		"dev": "turbo run dev",
 		"lint": "turbo run lint",
-		"format": "@biomejs/biome format \"**/*.{ts,tsx,md}\" --write"
+		"format": "turbo run format"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.4.1",

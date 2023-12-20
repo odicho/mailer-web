@@ -1,0 +1,33 @@
+{
+	"name": "@repo/db",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"exports": {
+		".": "./src/index.ts",
+		"./schema": "./src/schema.ts"
+	},
+	"typesVersions": {
+		"*": {
+			"*": ["./src/index.ts"],
+			"schema": ["./src/schema.ts"]
+		}
+	},
+	"scripts": {
+		"lint": "bunx @biomejs/biome lint ./src",
+		"lint:fix": "bunx @biomejs/biome lint --apply ./src",
+		"format": "bunx @biomejs/biome format ./src",
+		"format:fix": "bunx @biomejs/biome format --write ./src",
+		"schema:generate": "drizzle-kit generate:mysql",
+		"schema:migrate": "bun run ./src/db/migrate.ts"
+	},
+	"dependencies": {
+		"mysql2": "^3.6.5",
+		"drizzle-orm": "^0.29.1"
+	},
+	"devDependencies": {
+		"drizzle-kit": "^0.20.6",
+		"@repo/tsconfig": "workspace:*",
+		"typescript": "^5.1.6"
+	}
+}

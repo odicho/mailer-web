@@ -4,11 +4,10 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
-    "format": "bunx @biomejs/biome format --write \"**/*.{ts,tsx,md}\""
+    "format": "@biomejs/biome format \"**/*.{ts,tsx,md}\" --write"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.4.1",
-    "eslint": "^8.48.0",
     "turbo": "latest"
   },
   "name": "mailnow",

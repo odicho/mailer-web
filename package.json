@@ -1,20 +1,16 @@
 {
-  "private": true,
-  "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev",
-    "lint": "turbo run lint",
-    "format": "@biomejs/biome format \"**/*.{ts,tsx,md}\" --write"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "^1.4.1",
-    "turbo": "latest"
-  },
-  "name": "mailnow",
-  "packageManager": "bun@1.0.6",
-  "workspaces": [
-    "apps/*",
-    "packages/*",
-    "tooling/*"
-  ]
+	"private": true,
+	"scripts": {
+		"build": "turbo run build",
+		"dev": "turbo run dev",
+		"lint": "turbo run lint",
+		"format": "@biomejs/biome format \"**/*.{ts,tsx,md}\" --write"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^1.4.1",
+		"turbo": "latest"
+	},
+	"name": "mailnow",
+	"packageManager": "bun@1.0.18",
+	"workspaces": ["apps/*", "packages/*", "tooling/*"]
 }

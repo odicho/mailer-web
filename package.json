@@ -11,6 +11,6 @@
 		"turbo": "latest"
 	},
 	"name": "mailnow",
-	"packageManager": "bun@1.0.14",
+	"packageManager": "bun@1.0.18",
 	"workspaces": ["apps/*", "tooling/*"]
 }

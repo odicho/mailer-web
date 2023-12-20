@@ -12,5 +12,5 @@
 	},
 	"name": "mailnow",
 	"packageManager": "bun@1.0.14",
-	"workspaces": ["apps/*", "packages/*", "tooling/*"]
+	"workspaces": ["apps/*", "tooling/*"]
 }

@@ -5,7 +5,9 @@ import * as context from 'next/headers';
 export const GET = async () => {
 	const state = generateState();
 
-	const authorizationURL = await githubAuth.createAuthorizationURL(state);
+	const authorizationURL = await githubAuth.createAuthorizationURL(state, {
+		scopes: ['user:email'],
+	});
 
 	// store state
 	context.cookies().set('github_oauth_state', state, {

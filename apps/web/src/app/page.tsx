@@ -3,7 +3,6 @@ import { getUser } from '@repo/auth';
 import Form from '../components/form';
 
 const Page = async () => {
-	console.log('hello');
 	const user = await getUser();
 	if (!user) redirect('/login');
 	return (

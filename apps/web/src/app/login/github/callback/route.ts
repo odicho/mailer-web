@@ -28,7 +28,7 @@ export const GET = async (request: NextRequest) => {
 				Authorization: `Bearer ${tokens.accessToken}`,
 			},
 		});
-		const githubUser: GitHubUserResult = await githubUserResponse.json();
+		const githubUser: GitHubUser = await githubUserResponse.json();
 
 		const existingUserResponse = await db
 			.select()
@@ -55,16 +55,28 @@ export const GET = async (request: NextRequest) => {
 			});
 		}
 
+		if (!githubUser.email) {
+			const response = await fetch('https://api.github.com/user/emails', {
+				headers: {
+					Authorization: `Bearer ${tokens.accessToken}`,
+				},
+			});
+
+			if (response.ok) {
+				const emails: GitHubEmail[] = await response.json();
+				const primaryOrFirstEmail = emails.find((e) => e.primary) ?? emails[0];
+				githubUser.email = primaryOrFirstEmail?.email ?? null;
+			}
+		}
+
 		const userId = createId();
 		await db.transaction(async (tx) => {
-			await tx
-				.insert(user)
-				.values({
-					id: userId,
-					username: githubUser.login,
-					email: githubUser.email,
-					image: githubUser.avatar_url,
-				});
+			await tx.insert(user).values({
+				id: userId,
+				username: githubUser.login,
+				email: githubUser.email,
+				image: githubUser.avatar_url,
+			});
 			await tx
 				.insert(oauth_account)
 				.values({ providerId: 'github', providerUserId: githubUser.id.toString(), userId: userId });
@@ -93,9 +105,16 @@ export const GET = async (request: NextRequest) => {
 	}
 };
 
-interface GitHubUserResult {
+interface GitHubUser {
 	id: number;
 	login: string;
-	email: string;
+	email: string | null;
 	avatar_url: string;
+}
+
+export interface GitHubEmail {
+	email: string;
+	primary: boolean;
+	verified: boolean;
+	visibility: 'public' | 'private';
 }

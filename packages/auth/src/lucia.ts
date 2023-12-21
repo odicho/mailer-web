@@ -13,6 +13,7 @@ export const lucia = new Lucia(drizzleAdapter, {
 		return {
 			username: attributes.username,
 			email: attributes.email,
+			image: attributes.image,
 		};
 	},
 	sessionCookie: {
@@ -30,6 +31,7 @@ declare module 'lucia' {
 	interface DatabaseUserAttributes {
 		username: string;
 		email: string;
+		image: string;
 	}
 }
 

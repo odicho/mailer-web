@@ -1,16 +1,19 @@
 {
+	"name": "mailnow",
 	"private": true,
 	"scripts": {
 		"build": "turbo run build",
-		"dev": "turbo run dev",
+		"dev": "dotenv -- turbo run dev",
 		"lint": "turbo run lint",
-		"format": "turbo run format"
+		"format": "turbo run format",
+		"schema:generate": "turbo run schema:generate",
+		"schema:migrate": "turbo run schema:migrate"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.4.1",
+		"dotenv-cli": "latest",
 		"turbo": "latest"
 	},
-	"name": "mailnow",
 	"packageManager": "bun@1.0.18",
 	"workspaces": ["apps/*", "packages/*", "tooling/*"]
 }

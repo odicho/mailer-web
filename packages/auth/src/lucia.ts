@@ -9,12 +9,10 @@ import { cache } from 'react';
 const drizzleAdapter = new DrizzleMySQLAdapter(db, session, user);
 
 export const lucia = new Lucia(drizzleAdapter, {
-	getSessionAttributes: (attributes) => {
-		return {};
-	},
 	getUserAttributes: (attributes) => {
 		return {
 			username: attributes.username,
+			email: attributes.email,
 		};
 	},
 	sessionCookie: {
@@ -31,6 +29,7 @@ declare module 'lucia' {
 	// interface DatabaseSessionAttributes {}
 	interface DatabaseUserAttributes {
 		username: string;
+		email: string;
 	}
 }
 
@@ -42,7 +41,8 @@ export const githubAuth = new GitHub(
 export const getUser = cache(async () => {
 	const sessionId = cookies().get(lucia.sessionCookieName)?.value ?? null;
 	if (!sessionId) return null;
-	const { session, user } = await lucia.validateSession(sessionId);
+	const { user, session } = await lucia.validateSession(sessionId);
+
 	try {
 		if (session?.fresh) {
 			const sessionCookie = lucia.createSessionCookie(session.id);

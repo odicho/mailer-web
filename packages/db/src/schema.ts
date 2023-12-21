@@ -5,6 +5,8 @@ export const user = mysqlTable('user', {
 		length: 255,
 	}).primaryKey(),
 	username: varchar('username', { length: 255 }),
+	email: varchar('email', { length: 255 }),
+	image: varchar('image', { length: 255 }),
 });
 
 export const oauth_account = mysqlTable(

@@ -19,7 +19,7 @@
 		"format": "bunx @biomejs/biome format ./src",
 		"format:fix": "bunx @biomejs/biome format --write ./src",
 		"schema:generate": "drizzle-kit generate:mysql",
-		"schema:migrate": "bun run ./src/db/migrate.ts"
+		"schema:migrate": "bun run ./src/migrate.ts"
 	},
 	"dependencies": {
 		"mysql2": "^3.6.5",

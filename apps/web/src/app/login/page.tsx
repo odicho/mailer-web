@@ -1,7 +1,7 @@
 import { getUser } from '@repo/auth';
 import { redirect } from 'next/navigation';
 
-const Page = async () => {
+export default async function Page() {
 	const user = await getUser();
 	if (user) redirect('/');
 	return (
@@ -24,6 +24,4 @@ const Page = async () => {
 			</div>
 		</div>
 	);
-};
-
-export default Page;
+}

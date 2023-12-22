@@ -39,8 +39,9 @@ export const api_key = mysqlTable(
 	'api_key',
 	{
 		id: varchar('id', { length: 255 }).primaryKey(),
-		clientId: varchar('client_id', { length: 255 }),
+		clientId: varchar('client_id', { length: 255 }).notNull(),
 		clientSecret: varchar('client_secret', { length: 255 }).notNull(),
+		clientSecretSuffix: varchar('client_secret_suffix', { length: 8 }).notNull(),
 		userId: varchar('user_id', {
 			length: 255,
 		})

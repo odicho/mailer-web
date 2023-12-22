@@ -8,6 +8,20 @@
       "when": 1703208772747,
       "tag": "0000_long_magma",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1703215051688,
+      "tag": "0001_volatile_pepper_potts",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1703234383857,
+      "tag": "0002_clammy_synch",
+      "breakpoints": true
     }
   ]
 }

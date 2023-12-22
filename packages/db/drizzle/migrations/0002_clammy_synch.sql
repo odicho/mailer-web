@@ -1,0 +1,1 @@
+ALTER TABLE `api_key` MODIFY COLUMN `client_id` varchar(255) NOT NULL;

@@ -4,7 +4,7 @@ import Form from '../components/form';
 import Image from 'next/image';
 import Link from 'next/link';
 
-const Page = async () => {
+export default async function Page() {
 	const user = await getUser();
 	if (!user) redirect('/login');
 	return (
@@ -23,6 +23,4 @@ const Page = async () => {
 			</Form>
 		</>
 	);
-};
-
-export default Page;
+}

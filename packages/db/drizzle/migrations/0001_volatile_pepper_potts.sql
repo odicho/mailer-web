@@ -1,0 +1,1 @@
+ALTER TABLE `api_key` ADD `client_secret_suffix` varchar(8) NOT NULL;

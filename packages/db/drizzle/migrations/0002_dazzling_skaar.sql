@@ -1,1 +1,0 @@
-ALTER TABLE `user` ADD `image` varchar(255);

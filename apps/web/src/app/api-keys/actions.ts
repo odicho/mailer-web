@@ -6,7 +6,7 @@ import CRC32 from 'crc-32';
 import { and, db, eq, isNull } from '@repo/db';
 import { api_key } from '@repo/db/schema';
 import { getUser } from '@repo/auth';
-import { revalidateTag } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
 import { apiKeysCacheKey } from '../../utils/cache-keys';
 import { constantTimeEqual } from '../../utils/constantTimeEqual';
 
@@ -35,7 +35,7 @@ export async function createApiKey() {
 	});
 
 	// revalidateTag(apiKeysCacheKey(user.id));
-	revalidateTag('a-unique-tag');
+	revalidatePath('/api-keys');
 
 	return { clientId, clientSecret: combinedSecret };
 }

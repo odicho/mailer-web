@@ -7,8 +7,7 @@ import { and, db, eq, isNull } from '@repo/db';
 import { api_key } from '@repo/db/schema';
 import { getUser } from '@repo/auth';
 import { revalidateTag } from 'next/cache';
-
-export const apiKeysCacheKey = (userId: string) => `api-keys-${userId}`;
+import { apiKeysCacheKey } from './page';
 
 export async function createApiKey() {
 	const user = await getUser();

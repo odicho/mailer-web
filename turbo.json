@@ -4,27 +4,16 @@
 	"pipeline": {
 		"build": {
 			"dependsOn": ["^build"],
-			"outputs": ["dist/**", ".next/**", "!.next/cache/**"],
-			"dotEnv": [
-				".env.production.local",
-				".env.local",
-				".env.production",
-				".env"
-			]
+			"outputs": ["dist/**", ".next/**", "!.next/cache/**"]
 		},
 		"dev": {
 			"cache": false,
-			"persistent": true,
-			"dotEnv": [
-				".env.development.local",
-				".env.local",
-				".env.development",
-				".env"
-			]
+			"persistent": true
 		},
-		"test": {
-			"dotEnv": [".env.test.local", ".env.test", ".env"]
+		"start": {
+			"persistent": true
 		},
+		"test": {},
 		"lint": {},
 		"format": {},
 		"schema:generate": {},

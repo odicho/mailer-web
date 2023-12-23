@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation';
-import { getUser } from '@repo/auth';
+import { validateSession } from '@repo/auth';
 import Link from 'next/link';
 import { and, db, eq, isNull } from '@repo/db';
 import { api_key } from '@repo/db/schema';
@@ -20,7 +20,7 @@ const getCachedApiKeys = async (userId: string) => {
 };
 
 export default async function Page() {
-	const user = await getUser();
+	const { user } = await validateSession();
 	if (!user) redirect('/login');
 
 	const apiKeys = await getCachedApiKeys(user.id);

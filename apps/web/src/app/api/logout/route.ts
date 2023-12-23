@@ -1,4 +1,4 @@
-import { getUser, lucia } from '@repo/auth';
+import { lucia, validateSession } from '@repo/auth';
 import { verifyRequestOrigin } from 'lucia';
 import { headers } from 'next/headers';
 
@@ -14,23 +14,15 @@ export const POST = async (request: NextRequest) => {
 		});
 	}
 
-	const sessionId = request.cookies.get(lucia.sessionCookieName)?.value ?? null;
+	const { session } = await validateSession();
 
-	if (!sessionId) {
+	if (!session) {
 		return new Response(null, {
 			status: 401,
 		});
 	}
 
-	const { user } = await lucia.validateSession(sessionId);
-
-	if (!user) {
-		return new Response(null, {
-			status: 401,
-		});
-	}
-
-	await lucia.invalidateSession(sessionId);
+	await lucia.invalidateSession(session.id);
 	const blankSessionCookie = lucia.createBlankSessionCookie();
 
 	return new Response(null, {

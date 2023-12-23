@@ -5,13 +5,13 @@ import { createId } from '@paralleldrive/cuid2';
 import CRC32 from 'crc-32';
 import { and, db, eq, isNull } from '@repo/db';
 import { api_key } from '@repo/db/schema';
-import { getUser } from '@repo/auth';
+import { validateSession } from '@repo/auth';
 import { revalidatePath, revalidateTag } from 'next/cache';
 import { apiKeysCacheKey } from '../../utils/cache-keys';
 import { constantTimeEqual } from '../../utils/constantTimeEqual';
 
 export async function createApiKey() {
-	const user = await getUser();
+	const { user } = await validateSession();
 	if (!user) return { clientId: '', clientSecret: '' };
 
 	const id = createId();

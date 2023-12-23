@@ -1,8 +1,8 @@
-import { getUser } from '@repo/auth';
+import { validateSession } from '@repo/auth';
 import { redirect } from 'next/navigation';
 
 export default async function Page() {
-	const user = await getUser();
+	const { user } = await validateSession();
 	if (user) redirect('/');
 	return (
 		<div className="flex justify-center items-center min-h-full">

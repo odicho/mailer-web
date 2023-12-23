@@ -1,11 +1,11 @@
 import { redirect } from 'next/navigation';
-import { getUser } from '@repo/auth';
+import { validateSession } from '@repo/auth';
 import Form from '../components/form';
 import Image from 'next/image';
 import Link from 'next/link';
 
 export default async function Page() {
-	const user = await getUser();
+	const { user } = await validateSession();
 	if (!user) redirect('/login');
 	return (
 		<>

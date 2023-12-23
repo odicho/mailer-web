@@ -1,0 +1,36 @@
+{
+	"name": "@repo/ui",
+	"version": "0.0.0",
+	"private": true,
+	"exports": {
+		"./types": "./src/types.ts",
+		"./icons": "./src/icons.ts",
+		"./cn": "./src/cn.ts",
+		"./components/*": "./src/components/*"
+	},
+	"typesVersions": {
+		"*": {
+			"types": ["./src/types.ts"],
+			"icons": ["./src/icons.ts"],
+			"cn": ["./src/cn.ts"],
+			"components/*": ["./src/components/*"]
+		}
+	},
+	"scripts": {
+		"lint": "bunx @biomejs/biome lint ./src",
+		"lint:fix": "bunx @biomejs/biome lint --apply ./src",
+		"format": "bunx @biomejs/biome format ./src",
+		"format:fix": "bunx @biomejs/biome format --write ./src",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"clsx": "^2.0.0",
+		"react": "^18.2.0",
+		"tailwind-merge": "^2.2.0"
+	},
+	"devDependencies": {
+		"@repo/tsconfig": "workspace:*",
+		"@types/react": "^18.2.45",
+		"typescript": "^5.3.3"
+	}
+}

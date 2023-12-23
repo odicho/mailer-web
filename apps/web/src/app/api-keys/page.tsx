@@ -4,10 +4,7 @@ import Link from 'next/link';
 import { and, db, eq, isNull } from '@repo/db';
 import { api_key } from '@repo/db/schema';
 import { CreateAPIKeyButton, DeleteAPIKeyButton } from './api-keys';
-import { withUnstableCache } from '../../utils/withUnstableCache';
-import { apiKeysCacheKey } from '../../utils/cache-keys';
-import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
-import { columns } from './columns';
+import { ApiKeyTable } from './Table';
 
 export default async function Page() {
 	const user = await getUser();
@@ -21,12 +18,6 @@ export default async function Page() {
 	// 	tags: ['a-unique-tag'],
 	// });
 
-	const table = useReactTable({
-		data: apiKeys,
-		columns,
-		getCoreRowModel: getCoreRowModel(),
-	});
-
 	return (
 		<>
 			<nav className="py-4 border-b-2 border-black">
@@ -36,30 +27,7 @@ export default async function Page() {
 			<h1>Api Keys</h1>
 			<CreateAPIKeyButton />
 			<div className="pb-5" />
-			<table>
-				<thead>
-					{table.getHeaderGroups().map((headerGroup) => (
-						<tr key={headerGroup.id}>
-							{headerGroup.headers.map((header) => (
-								<th key={header.id}>
-									{header.isPlaceholder
-										? null
-										: flexRender(header.column.columnDef.header, header.getContext())}
-								</th>
-							))}
-						</tr>
-					))}
-				</thead>
-				<tbody>
-					{table.getRowModel().rows.map((row) => (
-						<tr key={row.id}>
-							{row.getVisibleCells().map((cell) => (
-								<td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>
-							))}
-						</tr>
-					))}
-				</tbody>
-			</table>
+			<ApiKeyTable apiKeys={apiKeys} />
 		</>
 	);
 }

@@ -7,4 +7,9 @@ export const columns: ColumnDef<Pick<ApiKey, 'clientId' | 'clientSecretSuffix'>>
 		header: 'Client Id',
 		cell: ({ row }) => <div className="capitalize">{row.original.clientId}</div>,
 	},
+	{
+		accessorKey: 'clientSecretSuffix',
+		header: 'Client Secret',
+		cell: ({ row }) => <div className="capitalize">{row.original.clientSecretSuffix}</div>,
+	},
 ];

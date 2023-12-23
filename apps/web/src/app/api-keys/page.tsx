@@ -7,10 +7,17 @@ import { CreateAPIKeyButton, DeleteAPIKeyButton } from './api-keys';
 import { ApiKeyTable } from './Table';
 import { withUnstableCache } from '../../utils/withUnstableCache';
 import { unstable_cache } from 'next/cache';
+import { apiKeysCacheKey } from '../../utils/cache-keys';
 
-const getCachedApiKeys = unstable_cache(async (userId: string) => getApiKeys(userId), [], {
-	tags: ['a-unique-tag'],
-});
+const getCachedApiKeys = async (userId: string) => {
+	return await unstable_cache(
+		async (userId: string) => getApiKeys(userId),
+		[apiKeysCacheKey(userId)],
+		{
+			tags: [apiKeysCacheKey(userId)],
+		},
+	)(userId);
+};
 
 export default async function Page() {
 	const user = await getUser();

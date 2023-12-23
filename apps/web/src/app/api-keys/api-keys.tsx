@@ -20,7 +20,6 @@ export function CreateAPIKeyButton() {
 				className="border border-black p-1"
 				onClick={async () => {
 					const { clientId, clientSecret } = await createApiKey();
-					router.refresh();
 					setCurrentClientId(clientId);
 					setCurrentSecret(clientSecret);
 				}}

@@ -34,8 +34,7 @@ export async function createApiKey() {
 		createdAt: new Date(),
 	});
 
-	// revalidateTag(apiKeysCacheKey(user.id));
-	revalidatePath('/api-keys');
+	revalidateTag(apiKeysCacheKey(user.id));
 
 	return { clientId, clientSecret: combinedSecret };
 }

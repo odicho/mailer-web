@@ -2,8 +2,10 @@
 
 import { useState } from 'react';
 import { createApiKey, deleteApiKey, verifyApiKey } from './actions';
+import { useRouter } from 'next/navigation';
 
 export function CreateAPIKeyButton() {
+	const router = useRouter();
 	const [currentClientId, setCurrentClientId] = useState('');
 	const [currentSecret, setCurrentSecret] = useState('');
 
@@ -20,6 +22,7 @@ export function CreateAPIKeyButton() {
 					const { clientId, clientSecret } = await createApiKey();
 					setCurrentClientId(clientId);
 					setCurrentSecret(clientSecret);
+					router.refresh();
 				}}
 			>
 				<b>Create new key</b>

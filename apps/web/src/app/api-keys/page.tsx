@@ -11,12 +11,13 @@ export default async function Page() {
 	const user = await getUser();
 	if (!user) redirect('/login');
 
-	const apiKeys = await withUnstableCache({
-		fn: getApiKeys,
-		args: [user.id],
-		keys: ['api-keys'],
-		tags: ['a-unique-tag'],
-	});
+	const apiKeys = await getApiKeys(user.id);
+	// const apiKeys = await withUnstableCache({
+	// 	fn: getApiKeys,
+	// 	args: [user.id],
+	// 	keys: ['api-keys'],
+	// 	tags: ['a-unique-tag'],
+	// });
 
 	return (
 		<>

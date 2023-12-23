@@ -33,7 +33,7 @@ export async function createApiKey() {
 		createdAt: new Date(),
 	});
 
-	revalidateTag('a-unique-tag');
+	revalidateTag(apiKeysCacheKey(user.id));
 
 	return { clientId, clientSecret: combinedSecret };
 }
@@ -82,7 +82,7 @@ export async function verifyApiKey(clientId: string, clientSecretInput: string) 
 export async function deleteApiKey(clientId: string, userId: string) {
 	await db.update(api_key).set({ deletedAt: new Date() }).where(eq(api_key.clientId, clientId));
 
-	revalidateTag('a-unique-tag');
+	revalidateTag(apiKeysCacheKey(userId));
 }
 
 function constantTimeEqual(str1: string, str2: string) {

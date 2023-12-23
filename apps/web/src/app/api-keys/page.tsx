@@ -15,7 +15,7 @@ export default async function Page() {
 		fn: getApiKeys,
 		args: [user.id],
 		keys: ['api-keys'],
-		tags: [apiKeysCacheKey(user.id)],
+		tags: ['a-unique-tag'],
 	});
 
 	return (

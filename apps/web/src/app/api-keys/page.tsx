@@ -32,6 +32,7 @@ export default async function Page() {
 			<div className="py-6" />
 			<CreateAPIKeyButton />
 			<div className="pb-5" />
+			<p>{apiKeys.length}</p>
 			<ApiKeyTable apiKeys={apiKeys} />
 		</>
 	);

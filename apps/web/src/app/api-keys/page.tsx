@@ -6,6 +6,8 @@ import { api_key } from '@repo/db/schema';
 import { CreateAPIKeyButton, DeleteAPIKeyButton } from './api-keys';
 import { withUnstableCache } from '../../utils/withUnstableCache';
 import { apiKeysCacheKey } from '../../utils/cache-keys';
+import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
+import { columns } from './columns';
 
 export default async function Page() {
 	const user = await getUser();
@@ -19,6 +21,12 @@ export default async function Page() {
 	// 	tags: ['a-unique-tag'],
 	// });
 
+	const table = useReactTable({
+		data: apiKeys,
+		columns,
+		getCoreRowModel: getCoreRowModel(),
+	});
+
 	return (
 		<>
 			<nav className="py-4 border-b-2 border-black">
@@ -30,23 +38,26 @@ export default async function Page() {
 			<div className="pb-5" />
 			<table>
 				<thead>
-					<tr className="text-left">
-						<th className="px-4">Client Id</th>
-						<th className="px-4">Client Secret</th>
-					</tr>
+					{table.getHeaderGroups().map((headerGroup) => (
+						<tr key={headerGroup.id}>
+							{headerGroup.headers.map((header) => (
+								<th key={header.id}>
+									{header.isPlaceholder
+										? null
+										: flexRender(header.column.columnDef.header, header.getContext())}
+								</th>
+							))}
+						</tr>
+					))}
 				</thead>
 				<tbody>
-					{apiKeys.map((row) => {
-						return (
-							<tr key={row.clientId}>
-								<td className="px-4 py-4">{row.clientId}</td>
-								<td className="px-4 py-4">******{row.clientSecretSuffix}</td>
-								<td className="px-4 py-4">
-									<DeleteAPIKeyButton clientId={row.clientId} userId={user.id} />
-								</td>
-							</tr>
-						);
-					})}
+					{table.getRowModel().rows.map((row) => (
+						<tr key={row.id}>
+							{row.getVisibleCells().map((cell) => (
+								<td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>
+							))}
+						</tr>
+					))}
 				</tbody>
 			</table>
 		</>

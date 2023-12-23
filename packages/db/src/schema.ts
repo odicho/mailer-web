@@ -58,3 +58,4 @@ export const api_key = mysqlTable(
 
 export type User = typeof user.$inferSelect;
 export type Session = typeof session.$inferSelect;
+export type ApiKey = typeof api_key.$inferSelect;

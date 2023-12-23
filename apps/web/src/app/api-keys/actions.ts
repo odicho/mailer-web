@@ -33,7 +33,8 @@ export async function createApiKey() {
 		createdAt: new Date(),
 	});
 
-	revalidateTag(apiKeysCacheKey(user.id));
+	// revalidateTag(apiKeysCacheKey(user.id));
+	revalidateTag('a-unique-tag');
 
 	return { clientId, clientSecret: combinedSecret };
 }

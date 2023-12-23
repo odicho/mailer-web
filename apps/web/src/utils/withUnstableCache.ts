@@ -7,14 +7,9 @@ export async function withUnstableCache<T extends (...args: any[]) => Promise<an
 	keys: string[];
 	tags: string[];
 }) {
-	const cachedResult = await unstable_cache(
-		async (...args) => {
-			const result = await opts.fn(...args);
-			return result;
-		},
-		[...opts.keys],
-		{ tags: opts.tags },
-	)(...opts.args);
+	const cachedResult = await unstable_cache(async (...args) => opts.fn(...args), [...opts.keys], {
+		tags: opts.tags,
+	})(...opts.args);
 
 	return cachedResult as Awaited<ReturnType<T>>;
 }

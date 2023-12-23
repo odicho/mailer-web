@@ -6,18 +6,23 @@ import { api_key } from '@repo/db/schema';
 import { CreateAPIKeyButton, DeleteAPIKeyButton } from './api-keys';
 import { ApiKeyTable } from './Table';
 import { withUnstableCache } from '../../utils/withUnstableCache';
+import { unstable_cache } from 'next/cache';
+
+const getCachedApiKeys = unstable_cache(async (userId: string) => getApiKeys(userId), [], {
+	tags: ['a-unique-tag'],
+});
 
 export default async function Page() {
 	const user = await getUser();
 	if (!user) redirect('/login');
 
-	// const apiKeys = await getApiKeys(user.id);
-	const apiKeys = await withUnstableCache({
-		fn: getApiKeys,
-		args: [user.id],
-		keys: ['api-keys'],
-		tags: ['a-unique-tag'],
-	});
+	const apiKeys = await getCachedApiKeys(user.id);
+	// const apiKeys = await withUnstableCache({
+	// 	fn: getApiKeys,
+	// 	args: [user.id],
+	// 	keys: ['api-keys'],
+	// 	tags: ['a-unique-tag'],
+	// });
 
 	return (
 		<>

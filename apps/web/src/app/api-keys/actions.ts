@@ -1,6 +1,6 @@
 'use server';
 
-import crypto, { createHash, timingSafeEqual } from 'crypto';
+import { createHash, randomBytes } from 'crypto';
 import { createId } from '@paralleldrive/cuid2';
 import CRC32 from 'crc-32';
 import { and, db, eq, isNull } from '@repo/db';
@@ -8,6 +8,7 @@ import { api_key } from '@repo/db/schema';
 import { getUser } from '@repo/auth';
 import { revalidateTag } from 'next/cache';
 import { apiKeysCacheKey } from '../../utils/cache-keys';
+import { constantTimeEqual } from '../../utils/constantTimeEqual';
 
 export async function createApiKey() {
 	const user = await getUser();
@@ -15,7 +16,7 @@ export async function createApiKey() {
 
 	const id = createId();
 	const clientId = createId();
-	const secret = crypto.randomBytes(18).toString('hex');
+	const secret = randomBytes(18).toString('hex');
 
 	const checksum = (CRC32.str(secret) >>> 0).toString(16).slice(-6);
 	const combinedSecret = secret + checksum;
@@ -84,15 +85,4 @@ export async function deleteApiKey(clientId: string, userId: string) {
 	await db.update(api_key).set({ deletedAt: new Date() }).where(eq(api_key.clientId, clientId));
 
 	revalidateTag(apiKeysCacheKey(userId));
-}
-
-function constantTimeEqual(str1: string, str2: string) {
-	const buf1 = Buffer.from(str1, 'utf-8');
-	const buf2 = Buffer.from(str2, 'utf-8');
-
-	try {
-		return crypto.timingSafeEqual(buf1, buf2);
-	} catch (err) {
-		return false;
-	}
 }

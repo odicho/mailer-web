@@ -5,6 +5,7 @@ import { and, db, eq, isNull } from '@repo/db';
 import { api_key } from '@repo/db/schema';
 import { CreateAPIKeyButton, DeleteAPIKeyButton } from './api-keys';
 import { withUnstableCache } from '../../utils/withUnstableCache';
+import { apiKeysCacheKey } from '../../utils/cache-keys';
 
 export default async function Page() {
 	const user = await getUser();
@@ -50,8 +51,6 @@ export default async function Page() {
 		</>
 	);
 }
-
-export const apiKeysCacheKey = (userId: string) => `api-keys-${userId}`;
 
 async function getApiKeys(userId: string) {
 	return await db
